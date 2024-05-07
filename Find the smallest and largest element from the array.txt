@@ -1,0 +1,23 @@
+public class MinMaxFinder {
+    public static void main(String[] args) {
+        int[] array = {10, 5, 8, 3, 15, 7};
+
+        // Initialize variables to store the minimum and maximum values
+        int min = array[0]; // Assuming the first element is the minimum
+        int max = array[0]; // Assuming the first element is the maximum
+
+        // Iterate through the array to find the minimum and maximum elements
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] < min) {
+                min = array[i]; // Update min if a smaller element is found
+            }
+            if (array[i] > max) {
+                max = array[i]; // Update max if a larger element is found
+            }
+        }
+
+        // Print the smallest and largest elements
+        System.out.println("Smallest element: " + min);
+        System.out.println("Largest element: " + max);
+    }
+}

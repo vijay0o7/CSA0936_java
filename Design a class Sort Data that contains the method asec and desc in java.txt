@@ -1,0 +1,43 @@
+import java.util.Arrays;
+
+public class SortData {
+    
+    // Method to sort data in ascending order
+    public static void asec(int[] data) {
+        Arrays.sort(data); // Using Java's built-in sorting algorithm
+    }
+    
+    // Method to sort data in descending order
+    public static void desc(int[] data) {
+        Arrays.sort(data); // Using Java's built-in sorting algorithm
+        reverseArray(data); // Reversing the array to get descending order
+    }
+    
+    // Helper method to reverse the array
+    private static void reverseArray(int[] array) {
+        int start = 0;
+        int end = array.length - 1;
+        while (start < end) {
+            // Swap elements at start and end indices
+            int temp = array[start];
+            array[start] = array[end];
+            array[end] = temp;
+            start++;
+            end--;
+        }
+    }
+    
+    public static void main(String[] args) {
+        int[] arr = {5, 2, 9, 1, 6};
+        
+        System.out.println("Original Array: " + Arrays.toString(arr));
+        
+        // Sorting in ascending order
+        asec(arr);
+        System.out.println("Sorted in Ascending Order: " + Arrays.toString(arr));
+        
+        // Sorting in descending order
+        desc(arr);
+        System.out.println("Sorted in Descending Order: " + Arrays.toString(arr));
+    }
+}

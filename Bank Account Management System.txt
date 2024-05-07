@@ -1,0 +1,104 @@
+// BankAccount class representing a generic bank account
+class BankAccount {
+    protected String accountNumber;
+    protected double balance;
+
+    public BankAccount(String accountNumber) {
+        this.accountNumber = accountNumber;
+        this.balance = 0.0;
+    }
+
+    public void deposit(double amount) {
+        balance += amount;
+        System.out.println("Deposit of $" + amount + " is successful.");
+    }
+
+    public void withdraw(double amount) {
+        if (balance >= amount) {
+            balance -= amount;
+            System.out.println("Withdrawal of $" + amount + " is successful.");
+        } else {
+            System.out.println("Insufficient funds.");
+        }
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+}
+
+// SavingsAccount class representing a savings account
+class SavingsAccount extends BankAccount {
+    private double interestRate;
+
+    public SavingsAccount(String accountNumber, double interestRate) {
+        super(accountNumber);
+        this.interestRate = interestRate;
+    }
+
+    public void addInterest() {
+        double interest = balance * interestRate / 100;
+        balance += interest;
+        System.out.println("Interest of $" + interest + " added to the account.");
+    }
+}
+
+// CurrentAccount class representing a current account
+class CurrentAccount extends BankAccount {
+    private double overdraftLimit;
+
+    public CurrentAccount(String accountNumber, double overdraftLimit) {
+        super(accountNumber);
+        this.overdraftLimit = overdraftLimit;
+    }
+
+    @Override
+    public void withdraw(double amount) {
+        if (balance + overdraftLimit >= amount) {
+            balance -= amount;
+            System.out.println("Withdrawal of $" + amount + " is successful.");
+        } else {
+            System.out.println("Exceeds overdraft limit.");
+        }
+    }
+}
+
+// FixedDepositAccount class representing a fixed deposit account
+class FixedDepositAccount extends BankAccount {
+    private int term; // Term of the fixed deposit in months
+
+    public FixedDepositAccount(String accountNumber, int term) {
+        super(accountNumber);
+        this.term = term;
+    }
+
+    @Override
+    public void withdraw(double amount) {
+        System.out.println("Cannot withdraw from a fixed deposit account before maturity.");
+    }
+}
+
+public class BankAccountManagementSystem {
+    public static void main(String[] args) {
+        // Creating accounts
+        SavingsAccount savingsAccount = new SavingsAccount("SAV001", 3.5);
+        CurrentAccount currentAccount = new CurrentAccount("CUR001", 1000);
+        FixedDepositAccount fixedDepositAccount = new FixedDepositAccount("FD001", 12);
+
+        // Depositing into accounts
+        savingsAccount.deposit(2000);
+        currentAccount.deposit(3000);
+
+        // Withdrawing from accounts
+        savingsAccount.withdraw(500);
+        currentAccount.withdraw(2000);
+
+        // Adding interest to savings account
+        savingsAccount.addInterest();
+
+        // Displaying balances
+        System.out.println("Savings Account Balance: $" + savingsAccount.getBalance());
+        System.out.println("Current Account Balance: $" + currentAccount.getBalance());
+        System.out.println("Fixed Deposit Account Balance: $" + fixedDepositAccount.getBalance());
+    }
+}
